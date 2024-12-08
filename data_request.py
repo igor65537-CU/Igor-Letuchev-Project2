@@ -22,7 +22,7 @@ def get_weather_data(lat, lon):
     API_key = get_API_key()
     location_key = get_location_key(lat, lon, API_key)
     url = f'http://dataservice.accuweather.com/forecasts/v1/daily/1day/{location_key}'
-    response = requests.get(f'{url}?apikey={API_key}&metric=true')
+    response = requests.get(f'{url}?apikey={API_key}&details=true&metric=true')
     if response.status_code == 200:
         data = response.json()
         data['status'] = 'ok'

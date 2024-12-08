@@ -12,10 +12,9 @@ def get_location_key(lat, lon, API_key):
         data = response.json()
         return data['Key']
     else:
-        print('Произошла ошибка при получении ключа города по координатам.\nВозвращен ключ города Москва.\nСохранение информации об ошибки в файле location_key_err.json')
-        with open('location_key_err.json', 'w') as err_log:
-            err_data = response.json()
-            json.dump(err_data, err_log, indent=4)
+        print('Произошла ошибка при получении ключа города по координатам.\nВозвращен ключ города Москва.\nСохранение информации об ошибки в файле location_key_err')
+        with open('location_key_err.txt', 'w') as err_log:
+            err_log.write(response)
         return '2515351'
 
 def get_weather_data(lat, lon):

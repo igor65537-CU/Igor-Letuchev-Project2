@@ -5,6 +5,9 @@ def weather_result(lat_1, lon_1, lat_2, lon_2):
     data_1 = get_weather_data(lat_1, lon_1)
     data_2 = get_weather_data(lat_2, lon_2)
 
+    if data_1['status'] == 'err' or data_2['status'] == 'err':
+        return 'Bad data, была ошибка при получении информации о погоде'
+
     checked_data_1 = weather_check(data_1)
     checked_data_2 = weather_check(data_2)
 

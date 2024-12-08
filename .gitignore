@@ -4,3 +4,4 @@ Include
 pyvenv.cfg
 weather_data.json
 location_key_err.json
+__pycache__

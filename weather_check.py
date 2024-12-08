@@ -1,4 +1,4 @@
-from data_request import *
+import json
 
 def check_temp(forecasts, res_obj):
     min_temp = forecasts['Temperature']['Minimum']['Value']
@@ -7,9 +7,11 @@ def check_temp(forecasts, res_obj):
     if min_temp < 0:
         res_obj['temp_pred'] = 'Будет холодно'
         res_obj['temp'] = min_temp
+        res_obj['is_bad'] = True
     elif max_temp > 35:
         res_obj['temp_pred'] = 'Будет жарко'
         res_obj['temp'] = max_temp
+        res_obj['is_bad'] = True
     else:
         res_obj['temp_pred'] = 'Обычная температура'
         res_obj['temp'] = [min_temp, max_temp]
@@ -19,6 +21,7 @@ def check_wind(forecasts, res_obj):
     if wind_speed > 50:
         res_obj['wind_status'] = 'ok'
         res_obj['wind_pred'] = 'Сильный ветер'
+        res_obj['is_bad'] = True
     elif wind_speed < 0:
         res_obj['wind_status'] = 'bad_data'
     else:
@@ -33,6 +36,7 @@ def check_precipitation(forecasts, res_obj):
     if chance > 70:
         res_obj['prec_status'] = 'ok'
         res_obj['prec_pred'] = 'Нужно чем-то укрыться'
+        res_obj['is_bad'] = True
     elif chance < 0:
         res_obj['prec_status'] = 'bad_data'
     else:
@@ -42,7 +46,7 @@ def check_precipitation(forecasts, res_obj):
     res_obj['prec_type'] = prec_type
 
 def weather_check(weather_data):
-    info = {}
+    info = {'is_bad': False}
     if weather_data['status'] == 'ok':
         check_temp(weather_data['DailyForecasts'][0], info)
         check_wind(weather_data['DailyForecasts'][0], info)
